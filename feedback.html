@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submit Feedback – B Force Media</title>
+    <meta name="description"
+        content="Share your experience at B Force Media. Quick and easy QR-based feedback form." />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="feedback.css" />
+</head>
+
+<body class="feedback-page">
+
+    <!-- ============ NAVBAR ============ -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="logo.png" alt="Silank4an Bank Logo" />
+            <div class="brand-name">B Force <span>Media</span></div>
+        </div>
+        <ul class="navbar-nav">
+            <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+            <li><a href="dashboard.html" class="nav-btn" data-i18n="nav_admin">Admin Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <!-- ============ FEEDBACK HERO ============ -->
+    <div class="fb-hero">
+        <div class="container text-center">
+            <!-- Language Switcher -->
+            <div class="lang-switcher" id="langSwitcher">
+                <button class="lang-btn active" data-lang="en">🇬🇧 English</button>
+                <button class="lang-btn" data-lang="si">🇱🇰 සිංහල</button>
+                <button class="lang-btn" data-lang="ta">🇱🇰 தமிழ்</button>
+            </div>
+            <div class="badge badge-gold" style="margin:0 auto 14px;">📝 <span data-i18n="hero_badge">Customer
+                    Feedback</span></div>
+            <h1 class="serif" style="color:var(--white);font-size:clamp(1.8rem,3.5vw,2.8rem);margin-bottom:12px;"
+                data-i18n="hero_title">
+                Tell Us About Your Experience
+            </h1>
+            <p style="color:rgba(255,255,255,.75);font-size:1rem;max-width:500px;margin:0 auto;" data-i18n="hero_sub">
+                Your feedback is received directly by our branch management team and helps us improve.
+            </p>
+        </div>
+    </div>
+
+    <!-- ============ FORM ============ -->
+    <div class="fb-form-wrap">
+        <div class="fb-form-card card animate-fadeInUp">
+
+            <!-- Progress Bar -->
+            <div class="fb-progress">
+                <div class="fb-progress-bar" id="progressBar" style="width:33%;"></div>
+            </div>
+
+            <!-- Step Indicators -->
+            <div class="fb-steps">
+                <div class="fb-step active" data-step="1">
+                    <span>1</span>
+                    <div data-i18n="step1_label">Service</div>
+                </div>
+                <div class="fb-step-line" id="line-1-2"></div>
+                <div class="fb-step" data-step="2">
+                    <span>2</span>
+                    <div data-i18n="step2_label">Ratings</div>
+                </div>
+                <div class="fb-step-line" id="line-2-3"></div>
+                <div class="fb-step" data-step="3">
+                    <span>3</span>
+                    <div data-i18n="step3_label">Details</div>
+                </div>
+            </div>
+
+            <form id="feedbackForm" class="card-body">
+
+                <!-- ===== STEP 1: Branch & Service Type ===== -->
+                <div class="fb-section" id="section-1">
+                    <h3 class="fb-section-title" data-i18n="s1_title">Branch &amp; Service Type</h3>
+                    <p class="fb-section-sub" data-i18n="s1_sub">Select the branch and the type of service you received
+                        today</p>
+
+                    <!-- Branch -->
+                    <div class="form-group">
+                        <label class="form-label"><span data-i18n="branch_label">Branch Name</span> <span
+                                class="required">*</span></label>
+                        <select class="form-control" id="branchSelect" required>
+                            <option value="" data-i18n="branch_placeholder">— Select Branch —</option>
+                            <option value="Main Branch">Main Branch</option>
+                            <option value="North Branch">North Branch</option>
+                            <option value="East Branch">East Branch</option>
+                            <option value="South Branch">South Branch</option>
+                            <option value="West Branch">West Branch</option>
+                            <option value="Online Banking">Online Banking / Digital</option>
+                        </select>
+                    </div>
+
+                    <!-- Service Type -->
+                    <div class="form-group">
+                        <label class="form-label"><span data-i18n="service_label">Service Type</span> <span
+                                class="required">*</span></label>
+                        <div class="service-grid">
+                            <div class="service-chip" data-value="Loan" data-i18n-val="service_loan">
+                                <span class="service-icon">🏠</span>
+                                <span data-i18n="service_loan">Loan</span>
+                            </div>
+                            <div class="service-chip" data-value="Leasing" data-i18n-val="service_leasing">
+                                <span class="service-icon">🚗</span>
+                                <span data-i18n="service_leasing">Leasing</span>
+                            </div>
+                            <div class="service-chip" data-value="Gold Loan" data-i18n-val="service_gold_loan">
+                                <span class="service-icon">🪙</span>
+                                <span data-i18n="service_gold_loan">Gold Loan</span>
+                            </div>
+                            <div class="service-chip" data-value="Deposits & Savings" data-i18n-val="service_deposits">
+                                <span class="service-icon">💰</span>
+                                <span data-i18n="service_deposits">Deposits &amp; Savings</span>
+                            </div>
+                            <div class="service-chip" data-value="Customer Service"
+                                data-i18n-val="service_customer_service">
+                                <span class="service-icon">👤</span>
+                                <span data-i18n="service_customer_service">Customer Service</span>
+                            </div>
+                            <div class="service-chip" data-value="Foreign Exchange" data-i18n-val="service_fx">
+                                <span class="service-icon">💱</span>
+                                <span data-i18n="service_fx">Foreign Exchange</span>
+                            </div>
+                            <div class="service-chip" data-value="Fixed Deposit" data-i18n-val="service_fd">
+                                <span class="service-icon">📋</span>
+                                <span data-i18n="service_fd">Fixed Deposit</span>
+                            </div>
+                            <div class="service-chip" data-value="ATM / Digital Banking" data-i18n-val="service_atm">
+                                <span class="service-icon">📱</span>
+                                <span data-i18n="service_atm">ATM / Digital</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date -->
+                    <div class="form-group">
+                        <label class="form-label"><span data-i18n="date_label">Date of Visit</span> <span
+                                class="required">*</span></label>
+                        <input type="date" class="form-control" id="visitDate" required />
+                    </div>
+
+                    <div class="fb-nav-row">
+                        <div></div>
+                        <button type="button" class="btn btn-primary" id="step1Next" onclick="goStep(2)">
+                            <span data-i18n="btn_continue">Continue</span> →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ===== STEP 2: Star Ratings ===== -->
+                <div class="fb-section hidden" id="section-2">
+                    <h3 class="fb-section-title" data-i18n="s2_title">Rate Your Experience</h3>
+                    <p class="fb-section-sub" data-i18n="s2_sub">Please rate each aspect from 1 (poor) to 5 (excellent)
+                    </p>
+
+                    <div class="star-ratings-block">
+
+                        <!-- Officer Behaviour -->
+                        <div class="star-rating-item">
+                            <div class="sri-meta">
+                                <div class="sri-icon">👮</div>
+                                <div>
+                                    <div class="sri-label" data-i18n="rat_officer">Officer Behaviour</div>
+                                    <div class="sri-desc" data-i18n="rat_officer_sub">Professionalism, courtesy and
+                                        helpfulness of staff</div>
+                                </div>
+                            </div>
+                            <div class="star-row-full" id="stars-officer" data-aspect="officer"></div>
+                            <div class="star-val" id="val-officer"></div>
+                        </div>
+
+                        <!-- Waiting Time -->
+                        <div class="star-rating-item">
+                            <div class="sri-meta">
+                                <div class="sri-icon">⏱️</div>
+                                <div>
+                                    <div class="sri-label" data-i18n="rat_waiting">Waiting Time</div>
+                                    <div class="sri-desc" data-i18n="rat_waiting_sub">How long you waited to be served
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="star-row-full" id="stars-waiting" data-aspect="waiting"></div>
+                            <div class="star-val" id="val-waiting"></div>
+                        </div>
+
+                        <!-- Overall Experience -->
+                        <div class="star-rating-item">
+                            <div class="sri-meta">
+                                <div class="sri-icon">🏦</div>
+                                <div>
+                                    <div class="sri-label" data-i18n="rat_overall">Overall Experience</div>
+                                    <div class="sri-desc" data-i18n="rat_overall_sub">Your general satisfaction with the
+                                        branch visit</div>
+                                </div>
+                            </div>
+                            <div class="star-row-full" id="stars-overall" data-aspect="overall"></div>
+                            <div class="star-val" id="val-overall"></div>
+                        </div>
+
+                        <!-- Phone Call Experience -->
+                        <div class="star-rating-item">
+                            <div class="sri-meta">
+                                <div class="sri-icon">📞</div>
+                                <div>
+                                    <div class="sri-label" data-i18n="rat_phone">Phone Call Experience</div>
+                                    <div class="sri-desc" data-i18n="rat_phone_sub">Quality of assistance received via
+                                        phone (if applicable)</div>
+                                </div>
+                            </div>
+                            <div class="star-row-full" id="stars-phone" data-aspect="phone"></div>
+                            <div class="star-val" id="val-phone"></div>
+                            <div class="na-toggle" onclick="toggleNA('phone')">
+                                <div class="na-check" id="na-phone"></div>
+                                <span data-i18n="not_applicable">Not Applicable</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="fb-nav-row">
+                        <button type="button" class="btn btn-outline" onclick="goStep(1)">← <span
+                                data-i18n="btn_back">Back</span></button>
+                        <button type="button" class="btn btn-primary" onclick="goStep(3)"><span
+                                data-i18n="btn_continue">Continue</span> →</button>
+                    </div>
+                </div>
+
+                <!-- ===== STEP 3: Details + Submit ===== -->
+                <div class="fb-section hidden" id="section-3">
+                    <h3 class="fb-section-title" data-i18n="s3_title">Additional Details</h3>
+                    <p class="fb-section-sub" data-i18n="s3_sub">All fields below are optional</p>
+
+                    <!-- Comments -->
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="comments_label">Your Comments</label>
+                        <textarea class="form-control" id="comments" rows="4"
+                            data-i18n-placeholder="comments_placeholder"></textarea>
+                    </div>
+
+                    <!-- Mobile + NIC -->
+                    <div class="grid-2" style="gap:16px;">
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="mobile_label">Mobile Number <span class="opt-tag"
+                                    data-i18n="optional_tag">(optional)</span></label>
+                            <input type="tel" class="form-control" id="custPhone"
+                                data-i18n-placeholder="mobile_placeholder" placeholder="07X-XXXXXXX" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="nic_label">NIC Number <span class="opt-tag"
+                                    data-i18n="optional_tag">(optional)</span></label>
+                            <input type="text" class="form-control" id="custNIC" data-i18n-placeholder="nic_placeholder"
+                                placeholder="XXXXXXXXXXXXXXXXX" />
+                        </div>
+                    </div>
+
+                    <!-- Anonymous Toggle -->
+                    <div class="anon-toggle" id="anonToggle" onclick="toggleAnon()">
+                        <div class="anon-check" id="anonCheck"></div>
+                        <div>
+                            <strong data-i18n="anon_title">Submit Anonymously</strong>
+                            <p data-i18n="anon_sub">Your mobile number and NIC will not be saved</p>
+                        </div>
+                    </div>
+
+                    <!-- Submission Summary -->
+                    <div class="fb-summary-box" id="summaryBox"></div>
+
+                    <div class="fb-nav-row">
+                        <button type="button" class="btn btn-outline" onclick="goStep(2)">← <span
+                                data-i18n="btn_back">Back</span></button>
+                        <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                            🚀 <span data-i18n="btn_submit">Submit Feedback</span>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- ============ SUCCESS OVERLAY ============ -->
+    <div class="success-overlay hidden" id="successOverlay">
+        <div class="success-card animate-fadeInUp">
+            <div class="success-icon">🎉</div>
+            <h2 class="serif" data-i18n="success_title">Thank You!</h2>
+            <p data-i18n="success_msg">Your feedback has been submitted successfully and sent to the branch management
+                team.</p>
+            <div class="success-ref"><span data-i18n="ref_label">Reference #</span>: <strong id="refNumber"></strong>
+            </div>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;">
+                <a href="index.html" class="btn btn-navy">← <span data-i18n="btn_home">Back to Home</span></a>
+                <button onclick="resetForm()" class="btn btn-primary"><span data-i18n="btn_another">Submit
+                        Another</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+        <div>© 2026 B Force Media. All rights reserved.</div>
+        <div data-i18n="footer_privacy">Your data is protected under BSP data privacy guidelines.</div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Pre-fill from URL params
+        const urlP = new URLSearchParams(window.location.search);
+        if (urlP.get('branch')) {
+            const sel = document.getElementById('branchSelect');
+            for (let opt of sel.options) {
+                if (opt.value === urlP.get('branch')) { opt.selected = true; break; }
+            }
+        }
+        // Set today's date
+        document.getElementById('visitDate').value = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+
+</html>

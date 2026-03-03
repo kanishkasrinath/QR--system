@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard – B Force Media Feedback</title>
+    <meta name="description" content="Admin dashboard for B Force Media QR Feedback System." />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body class="dashboard-page">
+
+    <!-- ============ NAVBAR ============ -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="logo.png" alt="Silank4an Bank Logo" />
+            <div class="brand-name">B Force <span>Media</span> <span class="admin-pill">Admin</span></div>
+        </div>
+        <ul class="navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="feedback.html" class="nav-btn">Submit Feedback</a></li>
+        </ul>
+    </nav>
+
+    <!-- ============ DASHBOARD LAYOUT ============ -->
+    <div class="dash-layout">
+
+        <!-- Sidebar -->
+        <aside class="dash-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-label">Overview</div>
+                <a class="sidebar-link active" href="#" data-tab="overview">📊 Dashboard</a>
+                <a class="sidebar-link" href="#" data-tab="feedbacks">💬 Feedback Log</a>
+                <a class="sidebar-link" href="#" data-tab="branches">🏦 By Branch</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-label">Filters</div>
+                <div style="padding:0 12px;">
+                    <select class="form-control" id="filterBranch"
+                        style="margin-bottom:10px;font-size:.82rem;padding:8px 12px;">
+                        <option value="all">All Branches</option>
+                        <option value="Main Branch">Main Branch</option>
+                        <option value="North Branch">North Branch</option>
+                        <option value="East Branch">East Branch</option>
+                        <option value="South Branch">South Branch</option>
+                    </select>
+                    <select class="form-control" id="filterPeriod" style="font-size:.82rem;padding:8px 12px;">
+                        <option value="7">Last 7 Days</option>
+                        <option value="30" selected>Last 30 Days</option>
+                        <option value="90">Last 90 Days</option>
+                    </select>
+                    <div id="activeFilterLabel"
+                        style="margin-top:10px;padding:6px 10px;background:var(--gold-pale);border:1px solid #e8d0a0;border-radius:var(--radius-sm);font-size:.72rem;font-weight:600;color:var(--navy);line-height:1.4;">
+                        All Branches &nbsp;·&nbsp; Last 30 days
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-label">Actions</div>
+                <a class="sidebar-link" href="feedback.html">➕ New Feedback Form</a>
+                <a class="sidebar-link" href="#" onclick="exportCSV()">📥 Export CSV</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dash-main">
+
+            <!-- Header -->
+            <div class="dash-header">
+                <div>
+                    <h1 class="serif" style="font-size:1.6rem;color:var(--navy);margin-bottom:4px;">Feedback Dashboard
+                    </h1>
+                    <p style="color:var(--gray-400);font-size:.85rem;">Real-time customer satisfaction overview ·
+                        Updated <span id="lastUpdated"></span></p>
+                </div>
+                <div style="display:flex;gap:10px;">
+                    <button class="btn btn-outline btn-sm" onclick="refreshData()">🔄 Refresh</button>
+                    <button class="btn btn-primary btn-sm" onclick="exportCSV()">📥 Export</button>
+                </div>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon" style="background:#e8f4fd;">📋</div>
+                    <div class="kpi-info">
+                        <div class="kpi-value" id="kpiTotal">—</div>
+                        <div class="kpi-label">Total Feedbacks</div>
+                        <div class="kpi-change positive" id="kpiTotalChange">↑ 12% vs last period</div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon" style="background:#fdf3dc;">⭐</div>
+                    <div class="kpi-info">
+                        <div class="kpi-value" id="kpiAvgRating">—</div>
+                        <div class="kpi-label">Average Rating</div>
+                        <div class="kpi-change positive" id="kpiRatingChange">↑ 0.3 pts vs last period</div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon" style="background:#d1fae5;">😊</div>
+                    <div class="kpi-info">
+                        <div class="kpi-value" id="kpiSatisfied">—</div>
+                        <div class="kpi-label">Satisfaction Rate</div>
+                        <div class="kpi-change positive">↑ 5% vs last period</div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon" style="background:#fee2e2;">⚠️</div>
+                    <div class="kpi-info">
+                        <div class="kpi-value" id="kpiPoor">—</div>
+                        <div class="kpi-label">Poor Ratings (1–2★)</div>
+                        <div class="kpi-change negative" id="kpiPoorChange">↓ 3% vs last period</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="charts-row">
+                <div class="chart-card">
+                    <div class="chart-card-header">
+                        <strong>Rating Distribution</strong>
+                        <span class="badge badge-gold">Overall</span>
+                    </div>
+                    <canvas id="ratingChart" height="220"></canvas>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-card-header">
+                        <strong>Feedback Trend</strong>
+                        <span class="badge badge-navy">30 Days</span>
+                    </div>
+                    <canvas id="trendChart" height="220"></canvas>
+                </div>
+            </div>
+
+            <!-- Branch Performance -->
+            <div class="chart-card" style="margin-bottom:24px;">
+                <div class="chart-card-header">
+                    <strong>Branch Performance Comparison</strong>
+                    <span class="badge badge-success">Live</span>
+                </div>
+                <canvas id="branchChart" height="120"></canvas>
+            </div>
+
+            <!-- Feedback Log -->
+            <div class="feedback-log-card">
+                <div class="chart-card-header" style="margin-bottom:16px;">
+                    <strong>Recent Feedback Submissions</strong>
+                    <span class="badge badge-navy" id="logCount">0 entries</span>
+                </div>
+                <div class="fb-table-wrap">
+                    <table class="fb-table" id="feedbackTable">
+                        <thead>
+                            <tr>
+                                <th>Ref #</th>
+                                <th>Branch</th>
+                                <th>Service Type</th>
+                                <th>Overall Rating</th>
+                                <th>Comment</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="feedbackTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+        <div>© 2026 B Force Media Admin Panel</div>
+        <div>QR Feedback System v2.0</div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Set last updated
+        document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' });
+
+        // Render charts & table
+        renderDashboard();
+
+        // Refresh
+        function refreshData() {
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' });
+            renderDashboard();
+        }
+    </script>
+</body>
+
+</html>
